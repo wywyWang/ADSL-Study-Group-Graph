@@ -51,8 +51,26 @@ def subtask_b(node_number):
     plt.close()
 
 
-def subtask_c():
-    pass
+def subtask_c(filename):
+    # remove header
+    graph_data = open(filename, 'r').read().splitlines()[1:]
+
+    G = nx.read_edgelist(graph_data, delimiter=',', create_using=nx.DiGraph())
+    
+    wcc = nx.weakly_connected_components(G)
+    smallest_wcc = [c for c in sorted(wcc, key=len, reverse=False)]
+
+    print("Number of nodes: {}".format(len(G.nodes)))
+    print("Number of edges: {}".format(len(G.edges)))
+    print("Number of weakly connected components: {}".format(len(smallest_wcc)))
+
+    # plot the top three smallest wcc
+    for i in range(3):
+        plt.title('{} Smallest Weakly Connected Components'.format(i+1))
+        nx.draw(G.subgraph(smallest_wcc[i]), node_size=12)
+        plt.draw()
+        plt.savefig('task_1_c_{}.png'.format(i))
+        plt.close()
 
 
 if __name__ == '__main__':
@@ -64,4 +82,4 @@ if __name__ == '__main__':
     elif config['task'] == 'B':
         subtask_b(5)
     elif config['task'] == 'C':
-        subtask_c()
+        subtask_c('elliptic_txs_edgelist.csv')
