@@ -52,6 +52,16 @@ def subtask_b(node_number):
 
 
 def subtask_c(filename):
+    """
+    Load graph data and:
+    1. Model as a directed graph
+    2. Get the number of nodes and edges
+    3. Get the number of weakly connected component
+    4. Plot the top three smallest weakly connected component
+
+    Args:
+        filename ([string]): Filename of graph data
+    """
     # remove header
     graph_data = open(filename, 'r').read().splitlines()[1:]
 
