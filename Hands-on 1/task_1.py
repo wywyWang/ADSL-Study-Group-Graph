@@ -1,4 +1,5 @@
 import networkx as nx
+import matplotlib.pyplot as plt
 import argparse
 
 
@@ -25,8 +26,29 @@ def subtask_a():
     print("Average clustering coefficient: {}".format(nx.average_clustering(G)))
 
 
-def subtask_b():
-    pass
+def subtask_b(node_number):
+    """
+    Given a complete graph, find the average degree and plot the graph with no label.
+
+    Args:
+        node_number ([int]): number of nodes
+    """
+    G = nx.complete_graph(node_number)
+
+    # calculate average degree
+    node_degree = nx.degree(G)
+    sum_degree = 0
+    for node, degree in node_degree:
+        sum_degree += degree
+
+    avg_degree = sum_degree / len(G.nodes)
+    print("Average degree: {}".format(avg_degree))
+
+    # plot the graph
+    nx.draw(G)
+    plt.draw()
+    plt.savefig('task_1_b.png')
+    plt.close()
 
 
 def subtask_c():
@@ -40,6 +62,6 @@ if __name__ == '__main__':
     if config['task'] == 'A':
         subtask_a()
     elif config['task'] == 'B':
-        subtask_b()
+        subtask_b(5)
     elif config['task'] == 'C':
         subtask_c()
